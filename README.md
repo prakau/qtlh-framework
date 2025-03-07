@@ -98,7 +98,3 @@ If you use QTL-H in your research, please cite:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-This work was supported by [funding organizations] and benefited from collaborations with [research institutions].
