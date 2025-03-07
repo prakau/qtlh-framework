@@ -1,0 +1,135 @@
+version: '3.8'
+
+services:
+  # Main application service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUILD_ENV: production
+    image: qtlh-framework
+    container_name: qtlh-app
+    volumes:
+      - ./data:/app/data
+      - ./results:/app/results
+    environment:
+      - PYTHONUNBUFFERED=1
+      - USE_GPU=false
+      - QTLH_CACHE_DIR=/app/.cache
+      - QTLH_DATA_DIR=/app/data
+      - QTLH_RESULTS_DIR=/app/results
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    command: python -m qtlh
+
+  # Development environment
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUILD_ENV: development
+    image: qtlh-framework-dev
+    container_name: qtlh-dev
+    volumes:
+      - .:/app
+      - ./data:/app/data
+      - ./results:/app/results
+      - ./.jupyter:/root/.jupyter
+    environment:
+      - PYTHONUNBUFFERED=1
+      - USE_GPU=false
+      - BUILD_ENV=development
+      - QTLH_CACHE_DIR=/app/.cache
+      - QTLH_DATA_DIR=/app/data
+      - QTLH_RESULTS_DIR=/app/results
+    ports:
+      - "8888:8888"  # Jupyter
+      - "8000:8000"  # API
+      - "6006:6006"  # TensorBoard
+    command: dev
+
+  # GPU-enabled service
+  gpu:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUILD_ENV: production
+        USE_GPU: "true"
+    image: qtlh-framework-gpu
+    container_name: qtlh-gpu
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - USE_GPU=true
+    volumes:
+      - ./data:/app/data
+      - ./results:/app/results
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  # Documentation service
+  docs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUILD_ENV: development
+    image: qtlh-framework-docs
+    container_name: qtlh-docs
+    volumes:
+      - ./docs:/app/docs
+    ports:
+      - "8080:8080"
+    command: make -C docs html serve
+
+  # Test runner
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: qtlh-framework-test
+    container_name: qtlh-test
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      - USE_GPU=false
+    command: test
+
+  # Jupyter Lab service
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUILD_ENV: development
+    image: qtlh-framework-jupyter
+    container_name: qtlh-jupyter
+    volumes:
+      - .:/app
+      - ./data:/app/data
+      - ./results:/app/results
+      - ./.jupyter:/root/.jupyter
+    ports:
+      - "8888:8888"
+    environment:
+      - BUILD_ENV=development
+    command: lab
+
+volumes:
+  data:
+  results:
+  jupyter:

@@ -1,0 +1,140 @@
+# QTL-H Framework Benchmark Configuration
+
+# General settings
+general:
+  random_seed: 42
+  num_runs: 3
+  save_results: true
+  results_dir: "benchmark_results"
+  gpu_enabled: auto  # auto, true, false
+  profile_memory: true
+  warmup_rounds: 2
+
+# Test data settings
+data:
+  sequence_lengths:
+    - 100
+    - 1000
+    - 10000
+  batch_sizes:
+    - 1
+    - 16
+    - 32
+    - 64
+  num_samples: 100
+  include_edge_cases: true
+
+# Module-specific settings
+quantum:
+  circuit_depths:
+    - 5
+    - 10
+    - 20
+  num_qubits:
+    - 4
+    - 8
+    - 16
+  backend: "qiskit"  # qiskit, cirq, pennylane
+
+hd:
+  dimensions:
+    - 1000
+    - 10000
+    - 100000
+  encoding_types:
+    - "fractal"
+    - "random"
+    - "circular"
+  compression_ratios:
+    - 0.1
+    - 0.5
+    - 1.0
+
+topology:
+  max_dimension: 3
+  persistence_thresholds:
+    - 0.1
+    - 0.01
+    - 0.001
+  filtration_types:
+    - "vietoris-rips"
+    - "alpha"
+    - "witness"
+
+language:
+  model_sizes:
+    - "small"    # 128M params
+    - "medium"   # 512M params
+    - "large"    # 1.5B params
+  sequence_lengths:
+    - 512
+    - 1024
+    - 2048
+  attention_types:
+    - "regular"
+    - "linear"
+    - "sparse"
+
+integration:
+  fusion_strategies:
+    - "weighted"
+    - "attention"
+    - "concatenation"
+  feature_dimensions:
+    - 32
+    - 64
+    - 128
+
+# Performance thresholds
+thresholds:
+  max_memory_mb: 8192
+  max_time_per_test_sec: 300
+  max_gpu_memory_mb: 4096
+  min_throughput_seqs_per_sec: 10
+
+# Resource monitoring
+monitoring:
+  cpu_monitoring: true
+  gpu_monitoring: true
+  memory_profiling: true
+  io_monitoring: true
+  network_monitoring: false
+
+# Output formats
+output:
+  formats:
+    - json
+    - csv
+    - html
+  plots:
+    - line
+    - bar
+    - heatmap
+  metrics:
+    - mean
+    - median
+    - std
+    - min
+    - max
+    - p95
+    - p99
+
+# Comparison settings
+comparison:
+  baseline_version: "0.1.0"
+  max_regression_threshold: 1.2  # 20% regression allowed
+  alert_on_regression: true
+  compare_with_competitors: false
+
+# Documentation
+docs:
+  auto_generate: true
+  include_plots: true
+  save_format: "markdown"
+  publish_to_gh_pages: false
+
+# Cleanup
+cleanup:
+  remove_temp_files: true
+  max_results_age_days: 30
+  compress_old_results: true

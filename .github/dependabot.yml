@@ -1,0 +1,84 @@
+version: 2
+updates:
+  # Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    labels:
+      - "dependencies"
+      - "python"
+    commit-message:
+      prefix: "⬆️ deps"
+      include: "scope"
+    reviewers:
+      - "qtlh-framework/maintainers"
+    groups:
+      pytorch:
+        patterns:
+          - "torch*"
+      tensorflow:
+        patterns:
+          - "tensorflow*"
+      quantum:
+        patterns:
+          - "qiskit*"
+          - "pennylane*"
+      dev-dependencies:
+        patterns:
+          - "pytest*"
+          - "black"
+          - "flake8*"
+          - "mypy"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "⬆️ ci"
+      include: "scope"
+    reviewers:
+      - "qtlh-framework/maintainers"
+
+  # Docker
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    labels:
+      - "dependencies"
+      - "docker"
+    commit-message:
+      prefix: "⬆️ docker"
+      include: "scope"
+    reviewers:
+      - "qtlh-framework/maintainers"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+# Dependabot security updates
+security-updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+  - package-ecosystem: "docker"
+    directory: "/"

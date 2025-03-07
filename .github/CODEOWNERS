@@ -1,0 +1,50 @@
+# Default owners for everything in the repo
+* @qtlh-framework/maintainers
+
+# Core module owners
+/src/qtlh/quantum/ @qtlh-framework/quantum-team
+/src/qtlh/hd/ @qtlh-framework/hd-team
+/src/qtlh/topology/ @qtlh-framework/topology-team
+/src/qtlh/language/ @qtlh-framework/language-team
+/src/qtlh/integration/ @qtlh-framework/integration-team
+/src/qtlh/validation/ @qtlh-framework/validation-team
+
+# Test owners
+/tests/quantum/ @qtlh-framework/quantum-team
+/tests/hd/ @qtlh-framework/hd-team
+/tests/topology/ @qtlh-framework/topology-team
+/tests/language/ @qtlh-framework/language-team
+/tests/integration/ @qtlh-framework/integration-team
+/tests/validation/ @qtlh-framework/validation-team
+
+# Documentation
+/docs/ @qtlh-framework/docs-team
+*.md @qtlh-framework/docs-team
+*.rst @qtlh-framework/docs-team
+
+# Examples
+/examples/ @qtlh-framework/maintainers @qtlh-framework/docs-team
+
+# Infrastructure and CI/CD
+/.github/ @qtlh-framework/devops
+/docker* @qtlh-framework/devops
+Makefile @qtlh-framework/devops
+pyproject.toml @qtlh-framework/maintainers
+setup.py @qtlh-framework/maintainers
+requirements.txt @qtlh-framework/maintainers
+
+# Performance-critical code
+**/*_cuda.* @qtlh-framework/performance-team
+**/*_gpu.* @qtlh-framework/performance-team
+**/*_optimized.* @qtlh-framework/performance-team
+
+# Security-sensitive areas
+/src/qtlh/validation/security.py @qtlh-framework/security-team
+/src/qtlh/validation/sanitizer.py @qtlh-framework/security-team
+
+# Dependencies and package configuration
+poetry.lock @qtlh-framework/maintainers
+*.toml @qtlh-framework/maintainers
+
+# Benchmarks
+/benchmarks/ @qtlh-framework/performance-team

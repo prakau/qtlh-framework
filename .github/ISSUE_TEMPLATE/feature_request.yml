@@ -1,0 +1,137 @@
+name: Feature Request
+description: Suggest a new feature for QTL-H Framework
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+assignees:
+  - qtlh-framework/maintainers
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest a new feature! Please fill out this form as completely as possible.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Preliminary Checks
+      options:
+        - label: I have searched existing issues and this feature has not been requested before
+          required: true
+        - label: I am willing to help implement this feature
+          required: false
+        - label: This feature is aligned with the project's scope
+          required: true
+
+  - type: dropdown
+    id: module
+    attributes:
+      label: Target Module
+      description: Which module would this feature belong to?
+      options:
+        - Quantum Processing
+        - Hyperdimensional Computing
+        - Topological Analysis
+        - Language Model
+        - Integration
+        - Validation
+        - Core Infrastructure
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What problem does this feature solve?
+      placeholder: |
+        Describe the problem you're trying to solve, including:
+        - Current limitations
+        - Use cases
+        - Who would benefit from this feature
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the solution you'd like
+      placeholder: |
+        A clear and concise description of what you want to happen.
+        Include any specific API proposals or implementation details if you have them.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: Describe alternatives you've considered
+      placeholder: |
+        What alternative solutions or approaches have you considered?
+        Why were they not suitable?
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Impact Assessment
+      description: What is the expected impact of this feature?
+      options:
+        - Critical (enables key use cases)
+        - High (significant improvement)
+        - Medium (nice to have)
+        - Low (minor enhancement)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: Implementation Complexity
+      description: How complex do you think implementing this feature would be?
+      options:
+        - High (requires significant architectural changes)
+        - Medium (requires careful design but feasible)
+        - Low (straightforward implementation)
+        - Unknown
+    validations:
+      required: true
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Example Usage
+      description: Provide an example of how this feature would be used
+      placeholder: |
+        ```python
+        # Example code showing how the feature would be used
+        from qtlh import YourFeature
+        
+        # Usage example
+        feature = YourFeature(params)
+        result = feature.do_something()
+        ```
+      render: python
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Add any other context about the feature request here
+      placeholder: |
+        - Related research papers
+        - Similar features in other projects
+        - Performance considerations
+        - Compatibility requirements
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      options:
+        - label: I would be interested in contributing this feature
+        - label: I would be interested in reviewing/testing this feature
+        - label: I would be interested in documenting this feature
